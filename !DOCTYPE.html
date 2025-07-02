@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Seiko Mod Customizer Demo</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; max-width: 500px; margin: auto; }
+  label { display: block; margin-top: 15px; font-weight: bold; }
+  select { width: 100%; padding: 8px; margin-top: 5px; }
+  #watch-preview { position: relative; width: 300px; height: 300px; margin: 20px auto; background: #222; border-radius: 15px; }
+  #watch-preview img { position: absolute; top: 0; left: 0; width: 300px; height: 300px; pointer-events: none; user-select: none; }
+  .summary { margin-top: 15px; background: #f9f9f9; padding: 10px; border-radius: 8px; }
+</style>
+</head>
+<body>
+
+<h2>Seiko Mod Customizer Demo</h2>
+
+<label for="case">Case Style:</label>
+<select id="case" onchange="updateWatch()">
+  <option value="datejust">Datejust</option>
+  <option value="gmt">GMT</option>
+  <option value="prx">PRX</option>
+  <option value="royal-oak">Royal Oak</option>
+  <option value="nautilus">Nautilus</option>
+</select>
+
+<label for="dial">Dial Style:</label>
+<select id="dial" onchange="updateWatch()">
+  <option value="sunburst-blue">Sunburst Blue</option>
+  <option value="sunburst-green">Sunburst Green</option>
+  <option value="matte-black">Matte Black</option>
+  <option value="snowflake-white">Snowflake White</option>
+  <option value="meteorite">Meteorite</option>
+</select>
+
+<label for="hands">Hands:</label>
+<select id="hands" onchange="updateWatch()">
+  <option value="dauphine">Dauphine</option>
+  <option value="mercedes">Mercedes</option>
+  <option value="snowflake">Snowflake</option>
+  <option value="pilot">Pilot</option>
+</select>
+
+<label for="bezel">Bezel Insert:</label>
+<select id="bezel" onchange="updateWatch()">
+  <option value="pepsi">Pepsi</option>
+  <option value="batman">Batman</option>
+  <option value="ceramic-black">Ceramic Black</option>
+  <option value="full-lume">Full Lume</option>
+</select>
+
+<label for="strap">Strap:</label>
+<select id="strap" onchange="updateWatch()">
+  <option value="stainless-steel">Stainless Steel</option>
+  <option value="rubber-strap">Rubber Strap</option>
+  <option value="leather-strap">Leather Strap</option>
+  <option value="nato-strap">NATO Strap</option>
+</select>
+
+<div id="watch-preview" aria-label="Watch Preview">
+  <img id="case-layer" src="https://i.imgur.com/uH4b69W.png" alt="Case Layer" />
+  <img id="dial-layer" src="https://i.imgur.com/4T6ZxO7.png" alt="Dial Layer" />
+  <img id="hands-layer" src="https://i.imgur.com/l4XBxQY.png" alt="Hands Layer" />
+  <img id="bezel-layer" src="https://i.imgur.com/Md06Tk5.png" alt="Bezel Layer" />
+  <img id="strap-layer" src="https://i.imgur.com/U6eoQQi.png" alt="Strap Layer" />
+</div>
+
+<div class="summary" id="summary">
+  Select options to see your watch preview.
+</div>
+
+<script>
+  const baseURL = 'https://i.imgur.com/'; // Using Imgur placeholder images
+
+  // Mappings (image URLs are placeholders, replace with your own)
+  const images = {
+    case: {
+      datejust: 'uH4b69W.png',
+      gmt: 'N8yLtqI.png',
+      prx: 'X9lfJoP.png',
+      'royal-oak': '9Yn88Nm.png',
+      nautilus: 'CjfAQZz.png',
+    },
+    dial: {
+      'sunburst-blue': '4T6ZxO7.png',
+      'sunburst-green': 'xksIbzS.png',
+      'matte-black': 'h5Iq2mL.png',
+      'snowflake-white': 'XUJUPZS.png',
+      meteorite: '7Ts8nr5.png',
+    },
+    hands: {
+      dauphine: 'l4XBxQY.png',
+      mercedes: '4LD5FzE.png',
+      snowflake: 'qDQiytn.png',
+      pilot: '6AF6YmA.png',
+    },
+    bezel: {
+      pepsi: 'Md06Tk5.png',
+      batman: '5BCH8sj.png',
+      'ceramic-black': 'qJrL3io.png',
+      'full-lume': 'X6ZYktb.png',
+    },
+    strap: {
+      'stainless-steel': 'U6eoQQi.png',
+      'rubber-strap': 'D4OPl5Q.png',
+      'leather-strap': 'kOR9iYn.png',
+      'nato-strap': 'ogFEMZb.png',
+    },
+  };
+
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1).replace(/-/g, ' ');
+  }
+
+  function updateWatch() {
+    const caseVal = document.getElementById('case').value;
+    const dialVal = document.getElementById('dial').value;
+    const handsVal = document.getElementById('hands').value;
+    const bezelVal = document.getElementById('bezel').value;
+    const strapVal = document.getElementById('strap').value;
+
+    document.getElementById('case-layer').src = baseURL + images.case[caseVal];
+    document.getElementById('dial-layer').src = baseURL + images.dial[dialVal];
+    document.getElementById('hands-layer').src = baseURL + images.hands[handsVal];
+    document.getElementById('bezel-layer').src = baseURL + images.bezel[bezelVal];
+    document.getElementById('strap-layer').src = baseURL + images.strap[strapVal];
+
+    const summaryText = `
+      <strong>Your Seiko Mod Build:</strong><br>
+      Case: ${capitalize(caseVal)}<br>
+      Dial: ${capitalize(dialVal)}<br>
+      Hands: ${capitalize(handsVal)}<br>
+      Bezel Insert: ${capitalize(bezelVal)}<br>
+      Strap: ${capitalize(strapVal)}
+    `;
+    document.getElementById('summary').innerHTML = summaryText;
+  }
+
+  window.onload = updateWatch;
+</script>
+
+</body>
+</html>
